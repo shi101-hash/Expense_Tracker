@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Expense List</title></head>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+    
+<body>
+<h1>All Expenses</h1>
+<a th:href="@{/expenses/new}">Add New Expense</a><br><br>
+<table border="1">
+    <tr>
+        <th>Expense Name</th>
+        <th>Description</th>
+        <th>Amount</th>
+        <th>Date</th>
+        <th>Actions</th>
+<!--        <th>Actions</th>-->
+    </tr>
+    <tr th:each="expense : ${expenses}">
+        <td th:text="${expense.name}"></td>
+        <td th:text="${expense.description}"></td>
+        <td th:text="${expense.amount}"></td>
+        <td th:text="${expense.date}"></td>
+        <td><a th:href="@{'/expenses/update/' + ${expense.id}}">Update</a></td>
+      <td><a th:href="@{'/expenses/delete/' + ${expense.id}}">Delete</a></td>
+      
+    </tr>
+</table><br><br><br>
+<a th:href="@{/expenses}">Back to Welcome Page</a> | <a th:href="@{/logout}">Logout</a>
+</body>
+</html>
