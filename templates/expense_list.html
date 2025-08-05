@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Expenses</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light bg-gradient" style="background: linear-gradient(to right, #f7fdfc, #eef7ff);">
+
+<div class="container py-5">
+    <div class="text-center mb-4">
+        <h3 class="fw-bold"> Your Expense History</h3>
+        <p class="text-muted">Track and manage your expenses here</p>
+    </div>
+
+    <!-- Show expense list if available -->
+    <div th:if="${expenses.size() > 0}" class="table-responsive">
+        <table class="table table-bordered table-striped align-middle shadow-sm text-center">
+            <thead class="table-dark">
+            <tr>
+                <th>Expense Name</th>
+                <th>Description</th>
+                <th>Amount (₹)</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="expense : ${expenses}">
+                <td th:text="${expense.name}">Name</td>
+                <td th:text="${expense.description}">Desc</td>
+                <td th:text="${expense.amount}">100</td>
+                <td th:text="${expense.date}">2025-07-14</td>
+                <td>
+                    <a th:href="@{'/expenses/update/' + ${expense.id}}" class="btn btn-sm btn-outline-warning me-1">Edit</a>
+                    <a th:href="@{'/expenses/delete/' + ${expense.id}}" class="btn btn-sm btn-outline-danger">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- No expense message -->
+    <div th:if="${expenses.size() == 0}" class="text-center my-5">
+        <img src="https://cdn-icons-png.flaticon.com/512/4076/4076549.png" width="120" class="mb-3" alt="No Expenses" />
+        <p class="text-muted fs-5">No expenses added yet. Click below to create your first entry.</p>
+    </div>
+
+    <div class="text-center mt-4 d-flex flex-column flex-md-row justify-content-center gap-2">
+        <a th:href="@{/expenses/new}" class="btn btn-primary"> Add New Expense</a>
+        <a th:href="@{/expenses}" class="btn btn-outline-secondary"> Back to Welcome</a>
+        <a th:href="@{/logout}" class="btn btn-outline-danger">Logout</a>
+    </div>
+</div>
+
+</body>
+</html>
